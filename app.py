@@ -16,7 +16,7 @@ def index_post():
     original_text = request.form['text']
     target_language = request.form['language']
 
-    #Carrega os valores do .env
+    #Lê as variáveis do .env
     key = os.environ['KEY']
     endpoint = os.environ['ENDPOINT']
     location = os.environ['LOCATION']
@@ -39,11 +39,11 @@ def index_post():
     #Criando o corpo da solicitação do texto a ser traduzido
     body = [{ 'text':original_text }]
 
-    #Realizando a chamada de post
+    #Realizando a chamada de post incluindo o texto a ser traduzido
     translator_request = requests.post(constructed_url, headers=headers, json=body)
-    #Recuperando a resposta json
+    #Recuperando a resposta json que inclui o texto traduzido
     translator_response = translator_request.json()
-    #Recuperando a tradução
+    #Recuperando o texto traduzido
     translated_text = translator_response[0]['translations'][0]['text']
 
     #Chamando o index com o texto traduzido
